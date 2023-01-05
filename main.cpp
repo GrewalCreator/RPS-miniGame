@@ -42,7 +42,6 @@ void start(){
         while(true) {
             int funSuccess = getUserMove(&playerMove);
             if (funSuccess == 0) {
-                cout << playerMove << endl;
                 break;
             } else {
                 cout << "Incorrect Value Provided! Please Pick A Valid Option" << endl;
@@ -54,12 +53,15 @@ void start(){
             cout << "Tie!" << endl;
         }else if(playerMove == PAPER && computerMove == ROCK){
             cout << "Player Wins!" << endl;
+            cout << "You Beat Rock With Paper" << endl;
         }
         else if(playerMove == ROCK && computerMove == SCISSOR){
             cout << "Player Wins!" << endl;
+            cout << "You Beat Scissors With Rock" << endl;
         }
         else if(playerMove == SCISSOR && computerMove == PAPER){
             cout << "Player Wins!" << endl;
+            cout << "You Beat Paper With Scissors" << endl;
         }else{
             cout << "Computer Wins!" << endl;
         }
@@ -83,6 +85,7 @@ int getUserMove(int* userChoice){
     string temp;
     cout << "Choose An Option Below:" << endl;
     cout << "1) Rock\n2) Paper\n3) Scissor" << endl;
+    cout << "> ";
     cin >> temp;
     transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
 
@@ -102,6 +105,16 @@ int getUserMove(int* userChoice){
 }
 
 int getComputerMove(int* computerChoice){
-    *computerChoice = 1 + (rand() % 3);
+
+    int n = 3;
+    int randomNum;
+
+    do {
+        randomNum = rand();
+    } while (randomNum >= (RAND_MAX - RAND_MAX % n));
+
+    randomNum %= n;
+
+    *computerChoice = randomNum;
     return CPP_OK;
 }
